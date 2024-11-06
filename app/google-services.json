@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "849362141918",
+    "project_id": "enchantedemporium-711c8",
+    "storage_bucket": "enchantedemporium-711c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849362141918:android:5702d3ee739a66b91db84f",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.qrvhfq.EnchantedEmporium"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_S-qy46b3oYzPyEHfdKkI2KXKAg7qnd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
