@@ -16,7 +16,7 @@
             android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.activities.ShoppingActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.activities.LoginRegActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
