@@ -39,6 +39,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures{
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -60,7 +65,7 @@ dependencies {
 
     //circular image
     implementation("de.hdodenhof:circleimageview:3.1.0")
-
+    implementation ("com.android.databinding:compiler:3.5.1")
     //viewpager2 indicatior
 //    implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
 
