@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="hu.bme.aut.qrvhfq.myapplication" />
+                  <option name="mobileSdkAppId" value="1:402522193753:android:b7df5d8f5494cfac241648" />
+                  <option name="projectId" value="enchanted-emporium-387cf" />
+                  <option name="projectNumber" value="402522193753" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
