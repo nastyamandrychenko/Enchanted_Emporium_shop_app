@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_register_graph"
+    app:startDestination="@id/regFragm">
+
+    <fragment
+        android:id="@+id/introFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.IntroFragm"
+        android:label="IntroFragm"
+        tools:layout="@layout/intro_fragm">
+
+        <action
+            android:id="@+id/action_introFragm_to_accountOptionsFragm"
+            app:destination="@id/accountOptionsFragm" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.LoginFragm"
+        android:label="LoginFragm"
+        tools:layout="@layout/login_fragm">
+        <action
+            android:id="@+id/action_loginFragm_to_regFragm"
+            app:destination="@id/regFragm" />
+    </fragment>
+    <fragment
+        android:id="@+id/regFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.RegFragm"
+        android:label="RegFragm"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_regFragm_to_loginFragm"
+            app:destination="@id/loginFragm" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountOptionsFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.AccountOptionsFragm"
+        android:label="AccountOptionsFragm"
+        tools:layout="@layout/account_fragm">
+        <action
+            android:id="@+id/action_accountOptionsFragm_to_loginFragm"
+            app:destination="@id/loginFragm" />
+        <action
+            android:id="@+id/action_accountOptionsFragm_to_regFragm"
+            app:destination="@id/regFragm" />
+    </fragment>
+</navigation>

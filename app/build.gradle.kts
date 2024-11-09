@@ -60,12 +60,14 @@ dependencies {
 //    implementation("br.com.simplepass:loading-button-android:2.2.0")
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+
 
     implementation("com.github.bumptech.glide:glide:4.13.0")
 
     //circular image
     implementation("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.android.databinding:compiler:3.5.1")
+//    implementation ("com.android.databinding:compiler:3.5.1")
     //viewpager2 indicatior
 //    implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
 
