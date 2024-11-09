@@ -10,8 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.User
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.RegisterValidation
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.validateEmail
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.validatePassword
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.RegisterViewModel
+import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentRegisterBinding
 
 private val TAG = "RegisterFragment"
@@ -32,35 +36,66 @@ class RegFragm: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            RegisterBut.setOnClickListener{
-                val user = User(
-                    firstNameLable.text.toString().trim(),
-                    LastNameLable.text.toString().trim(),
-                    EmailLabel.text.toString().trim()
-
-
-                )
+            RegisterBut.setOnClickListener {
+                val email = EmailLabel.text.toString().trim()
                 val password = PasswordLable.text.toString()
-                viewModel.createAccountwithEmailandPassword(user,password)
-                lifecycleScope.launchWhenStarted {
-                 viewModel.register.collect{
-                     when(it){
-                         is Resource.Loading -> {
 
-                         binding.RegisterBut.startAnimation()
-                         }
-                         is Resource.Success -> {
-                         Log.d("test", it.data.toString())
-                             binding.RegisterBut.revertAnimation()
-                         }
-                         is Resource.Error ->{
-                             Log.d(TAG, it.message.toString())
-                             binding.RegisterBut.revertAnimation()
+                // Validate email and password
+                val emailValidation = validateEmail(email)
+                val passwordValidation = validatePassword(password)
 
+                // Handle email validation
+                if (emailValidation is RegisterValidation.Failed) {
+                    EmailLabel.apply {
+                        hint = emailValidation.message
+                        background = resources.getDrawable(R.drawable.edittext_border_red, null) // Change to red border
+                    }
+                } else {
+                    EmailLabel.apply {
+                        hint = "Enter your email"
+                        background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default border
+                    }
+                }
 
-                         }
-                     }
-                 }
+                // Handle password validation
+                if (passwordValidation is RegisterValidation.Failed) {
+                    PasswordLable.apply {
+                        hint = passwordValidation.message
+                        background = resources.getDrawable(R.drawable.edittext_border_red, null) // Change to red border
+                    }
+                } else {
+                    PasswordLable.apply {
+                        hint = "Enter your password"
+                        background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default border
+                    }
+                }
+
+                // If both validations pass, proceed with registration
+                if (emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success) {
+                    val user = User(
+                        firstNameLable.text.toString().trim(),
+                        LastNameLable.text.toString().trim(),
+                        email
+                    )
+                    viewModel.createAccountwithEmailandPassword(user, password)
+
+                    lifecycleScope.launchWhenStarted {
+                        viewModel.register.collect {
+                            when (it) {
+                                is Resource.Loading -> {
+                                    RegisterBut.startAnimation()
+                                }
+                                is Resource.Success -> {
+                                    Log.d("test", it.data.toString())
+                                    RegisterBut.revertAnimation()
+                                }
+                                is Resource.Error -> {
+                                    Log.d(TAG, it.message.toString())
+                                    RegisterBut.revertAnimation()
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
