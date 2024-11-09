@@ -111,7 +111,7 @@
         android:background="@drawable/edittext_border"
         android:fontFamily="@font/lusitana_regular"
         android:layout_marginTop="18dp"
-
+        android:inputType="textPassword"
         android:padding="10dp"
         android:hint="Share the secret password"
         ></EditText>
