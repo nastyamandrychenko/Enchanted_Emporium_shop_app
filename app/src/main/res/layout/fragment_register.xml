@@ -101,6 +101,8 @@
         android:hint="Enter your magical email"
         ></EditText>
 
+
+
     <EditText
         android:id="@+id/PasswordLable"
         android:layout_width="0dp"

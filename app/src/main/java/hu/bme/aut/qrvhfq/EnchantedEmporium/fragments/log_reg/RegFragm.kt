@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,46 +38,40 @@ class RegFragm: Fragment() {
 
         binding.apply {
             RegisterBut.setOnClickListener {
+                val firstName = firstNameLable.text.toString().trim()
+                val lastName = LastNameLable.text.toString().trim()
                 val email = EmailLabel.text.toString().trim()
                 val password = PasswordLable.text.toString()
 
-                // Validate email and password
+                // Validate First Name
+                val firstNameValidation = if (firstName.isEmpty()) {
+                    RegisterValidation.Failed("First name cannot be empty")
+                } else {
+                    RegisterValidation.Success
+                }
+
+                // Validate Last Name
+                val lastNameValidation = if (lastName.isEmpty()) {
+                    RegisterValidation.Failed("Last name cannot be empty")
+                } else {
+                    RegisterValidation.Success
+                }
+
                 val emailValidation = validateEmail(email)
+
                 val passwordValidation = validatePassword(password)
 
-                // Handle email validation
-                if (emailValidation is RegisterValidation.Failed) {
-                    EmailLabel.apply {
-                        hint = emailValidation.message
-                        background = resources.getDrawable(R.drawable.edittext_border_red, null) // Change to red border
-                    }
-                } else {
-                    EmailLabel.apply {
-                        hint = "Enter your email"
-                        background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default border
-                    }
-                }
+                handleFieldValidation(firstNameLable, firstNameValidation)
+                handleFieldValidation(LastNameLable, lastNameValidation)
+                handleFieldValidation(EmailLabel, emailValidation)
+                handleFieldValidation(PasswordLable, passwordValidation)
 
-                // Handle password validation
-                if (passwordValidation is RegisterValidation.Failed) {
-                    PasswordLable.apply {
-                        hint = passwordValidation.message
-                        background = resources.getDrawable(R.drawable.edittext_border_red, null) // Change to red border
-                    }
-                } else {
-                    PasswordLable.apply {
-                        hint = "Enter your password"
-                        background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default border
-                    }
-                }
-
-                // If both validations pass, proceed with registration
-                if (emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success) {
-                    val user = User(
-                        firstNameLable.text.toString().trim(),
-                        LastNameLable.text.toString().trim(),
-                        email
-                    )
+                if (firstNameValidation is RegisterValidation.Success &&
+                    lastNameValidation is RegisterValidation.Success &&
+                    emailValidation is RegisterValidation.Success &&
+                    passwordValidation is RegisterValidation.Success
+                ) {
+                    val user = User(firstName, lastName, email)
                     viewModel.createAccountwithEmailandPassword(user, password)
 
                     lifecycleScope.launchWhenStarted {
@@ -97,6 +92,42 @@ class RegFragm: Fragment() {
                         }
                     }
                 }
+            }
+
+            // Reset error and background when user focuses on EditText
+            firstNameLable.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    firstNameLable.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                }
+            }
+
+            LastNameLable.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    LastNameLable.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                }
+            }
+
+            EmailLabel.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    EmailLabel.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                }
+            }
+
+            PasswordLable.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    PasswordLable.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                }
+            }
+        }
+    }
+
+    private fun handleFieldValidation(editText: EditText, validation: RegisterValidation) {
+        when (validation) {
+            is RegisterValidation.Failed -> {
+                editText.background = resources.getDrawable(R.drawable.edittext_border_red, null) // Red border
+            }
+            is RegisterValidation.Success -> {
+                editText.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
             }
         }
     }
