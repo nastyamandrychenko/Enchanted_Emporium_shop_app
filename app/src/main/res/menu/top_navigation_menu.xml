@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:title="Home"
-    android:icon="@drawable/logo_top_menu"
+    android:icon="@drawable/home_sign"
     android:id="@+id/homeFragm"/>
 
     <item android:title="Search"
-        android:icon="@drawable/search_sign"
-        android:id="@+id/searchFragm"/>
+        android:icon="@drawable/category_sign"
+        android:id="@+id/categoryFragm"/>
 
     <item android:title="Cart"
         android:icon="@drawable/cart_sign"

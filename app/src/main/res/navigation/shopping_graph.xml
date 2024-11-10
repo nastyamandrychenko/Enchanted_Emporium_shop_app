@@ -17,10 +17,10 @@
         tools:layout="@layout/fragment_cart"
        />
     <fragment
-        android:id="@+id/searchFragm"
-        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.SearchFragm"
+        android:id="@+id/categoryFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.CategoryFragm"
         android:label="SearchFragm"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_category"/>
     <fragment
         android:id="@+id/profileFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProfileFragm"
