@@ -55,6 +55,7 @@
         tools:layout_editor_absoluteX="54dp"
         tools:layout_editor_absoluteY="454dp" />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startBut"
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:background="@color/olive"

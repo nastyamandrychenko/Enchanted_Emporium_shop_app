@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.activities.ShoppingActivity
@@ -32,7 +33,9 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.regIfNoLog.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragm_to_regFragm)
+        }
         binding.apply{
             LogInBut.setOnClickListener{
                 val email = logInEmail.text.toString().trim()

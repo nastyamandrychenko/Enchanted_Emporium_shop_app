@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.User
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.RegisterValidation
@@ -35,6 +36,11 @@ class RegFragm: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        binding.logIfNoReg.setOnClickListener {
+            findNavController().navigate(R.id.action_regFragm_to_loginFragm)
+        }
 
         binding.apply {
             RegisterBut.setOnClickListener {

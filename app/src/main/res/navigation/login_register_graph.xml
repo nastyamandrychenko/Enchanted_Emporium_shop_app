@@ -22,7 +22,8 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragm_to_regFragm"
-            app:destination="@id/regFragm" />
+            app:destination="@id/regFragm"
+            app:popUpTo="@id/accountOptionsFragm" />
     </fragment>
     <fragment
         android:id="@+id/regFragm"
@@ -31,13 +32,14 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_regFragm_to_loginFragm"
-            app:destination="@id/loginFragm" />
+            app:destination="@id/loginFragm"
+            app:popUpTo="@id/accountOptionsFragm" />
     </fragment>
     <fragment
         android:id="@+id/accountOptionsFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.AccountOptionsFragm"
         android:label="AccountOptionsFragm"
-        tools:layout="@layout/account_fragm">
+        tools:layout="@layout/fragment_account_options">
         <action
             android:id="@+id/action_accountOptionsFragm_to_loginFragm"
             app:destination="@id/loginFragm" />
