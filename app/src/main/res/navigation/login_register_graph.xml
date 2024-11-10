@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/action_introFragm_to_accountOptionsFragm"
-            app:destination="@id/accountOptionsFragm" />
+            app:destination="@id/accountOptionsFragm"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/loginFragm"
@@ -23,6 +27,10 @@
         <action
             android:id="@+id/action_loginFragm_to_regFragm"
             app:destination="@id/regFragm"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right"
             app:popUpTo="@id/accountOptionsFragm" />
     </fragment>
     <fragment
@@ -33,6 +41,10 @@
         <action
             android:id="@+id/action_regFragm_to_loginFragm"
             app:destination="@id/loginFragm"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right"
             app:popUpTo="@id/accountOptionsFragm" />
     </fragment>
     <fragment
@@ -42,9 +54,17 @@
         tools:layout="@layout/fragment_account_options">
         <action
             android:id="@+id/action_accountOptionsFragm_to_loginFragm"
-            app:destination="@id/loginFragm" />
+            app:destination="@id/loginFragm"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right" />
         <action
             android:id="@+id/action_accountOptionsFragm_to_regFragm"
-            app:destination="@id/regFragm" />
+            app:destination="@id/regFragm"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right" />
     </fragment>
 </navigation>

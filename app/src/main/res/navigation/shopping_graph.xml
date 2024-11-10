@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shopping_graph"
+    app:startDestination="@id/homeFragm">
+
+    <fragment
+        android:id="@+id/homeFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.HomeFragm"
+        android:label="HomeFragm"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/cartFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.CartFragm"
+        android:label="CartFragm"
+        tools:layout="@layout/fragment_cart"
+       />
+    <fragment
+        android:id="@+id/searchFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.SearchFragm"
+        android:label="SearchFragm"
+        tools:layout="@layout/fragment_search"/>
+    <fragment
+        android:id="@+id/profileFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProfileFragm"
+        android:label="ProfileFragm"
+        tools:layout="@layout/fragment_profile"/>
+</navigation>

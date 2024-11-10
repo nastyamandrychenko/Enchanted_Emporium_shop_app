@@ -108,18 +108,6 @@
         app:layout_constraintTop_toBottomOf="@id/LogInBut"
         app:layout_constraintLeft_toRightOf="@+id/gmailView"/>
 
-    <TextView
-        android:id="@+id/forgotPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        app:layout_constraintTop_toBottomOf="@id/logInPassword"
-        app:layout_constraintLeft_toLeftOf="@+id/line3"
-        android:layout_margin="10dp"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="506dp"
-        android:fontFamily="@font/lusitana_regular"
-        />
 
     <TextView
         android:id="@+id/regIfNoLog"
@@ -146,7 +134,7 @@
         android:fontFamily="@font/lusitana_bold"
         app:layout_constraintStart_toStartOf="@id/line3"
         app:layout_constraintEnd_toEndOf="@id/line5"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPass"
+        app:layout_constraintTop_toBottomOf="@+id/logInPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         ></com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton>

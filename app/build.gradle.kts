@@ -73,8 +73,6 @@ dependencies {
 
     //circular image
     implementation("de.hdodenhof:circleimageview:3.1.0")
-//    implementation ("com.android.databinding:compiler:3.5.1")
-    //viewpager2 indicatior
 
     //stepView
     implementation("com.github.shuhart:stepview:1.5.1")
@@ -85,6 +83,9 @@ dependencies {
 
     //Coroutines with firebase
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1")
+
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.2")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.5.2")
 
 }
 kapt {
