@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_register_graph"
-    app:startDestination="@id/regFragm">
+    app:startDestination="@id/introFragm">
 
     <fragment
         android:id="@+id/introFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.IntroFragm"
         android:label="IntroFragm"
-        tools:layout="@layout/intro_fragm">
+        tools:layout="@layout/fragment_intro">
 
         <action
             android:id="@+id/action_introFragm_to_accountOptionsFragm"
@@ -19,7 +19,7 @@
         android:id="@+id/loginFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.log_reg.LoginFragm"
         android:label="LoginFragm"
-        tools:layout="@layout/login_fragm">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragm_to_regFragm"
             app:destination="@id/regFragm" />

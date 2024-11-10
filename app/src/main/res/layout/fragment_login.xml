@@ -82,6 +82,7 @@
         android:fontFamily="@font/lusitana_regular"
         android:background="@drawable/edittext_border"
         android:padding="10dp"
+        android:inputType="textPassword"
         android:hint="Share the secret password"
         ></EditText>
 
@@ -134,7 +135,7 @@
         android:fontFamily="@font/lusitana_regular"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/LogInBut"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -148,7 +149,7 @@
         app:layout_constraintTop_toBottomOf="@+id/forgotPass"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        ></androidx.appcompat.widget.AppCompatButton>
+        ></com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton>
 
 
 
