@@ -9,15 +9,21 @@ import hu.bme.aut.qrvhfq.myapplication.databinding.ActivityShoppingBinding
 
 class ShoppingActivity : AppCompatActivity() {
 
-    val binding by lazy{
-        ActivityShoppingBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityShoppingBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shopping)
 
+        // Inflate binding and set the root as the content view
+        binding = ActivityShoppingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Set up the navigation controller only after the view is fully ready
+        setupNavigation()
+    }
+
+    private fun setupNavigation() {
         val navController = findNavController(R.id.hostFragm)
         binding.bottomMenu.setupWithNavController(navController)
-
     }
 }
