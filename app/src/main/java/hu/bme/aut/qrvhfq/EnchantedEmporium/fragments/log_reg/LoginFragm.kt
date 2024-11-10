@@ -4,4 +4,5 @@ import androidx.fragment.app.Fragment
 import hu.bme.aut.qrvhfq.myapplication.R
 
 class LoginFragm: Fragment(R.layout.login_fragm) {
+//    private lateinit var binding: FragmentLoginBinding
 }
