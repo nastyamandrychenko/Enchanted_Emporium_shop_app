@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:layout_height="wrap_content"
-        app:tabRippleColor="@style/TabTextSelected"
+        app:tabRippleColor="@color/white"
         app:tabSelectedTextColor="@color/black"
         app:tabMode="scrollable"
         app:tabTextAppearance="@style/tabLayout_text"
