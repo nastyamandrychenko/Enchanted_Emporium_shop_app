@@ -38,7 +38,7 @@
 
 
             <TextView
-                android:layout_width="160dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_border"
                 android:fontFamily="@font/lusitana_regular"
@@ -97,6 +97,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@style/TabTextSelected"
+        app:tabSelectedTextColor="@color/black"
+        app:tabMode="scrollable"
+        app:tabTextAppearance="@style/tabLayout_text"
+        app:layout_constraintTop_toBottomOf="@id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tabIndicator="@null"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="Category selection tabs"
+        />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpagerHome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
