@@ -16,6 +16,7 @@
         <activity
             android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.activities.ShoppingActivity"
             android:exported="true" />
+        <activity android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.activities.AddProductsActivity"> </activity>
         <activity
             android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.activities.LoginRegActivity"
             android:exported="true">

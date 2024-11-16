@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.qrvhfq.EnchantedEmporium.activities.AddProductsActivity
 import hu.bme.aut.qrvhfq.EnchantedEmporium.activities.ShoppingActivity
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.LogInViewModel
@@ -23,6 +24,10 @@ import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentLoginBinding
 class LoginFragm: Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<LogInViewModel>()
+
+    private val validEmail = "admin@domain.com"
+    private val validPassword = "admin123"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,7 +40,7 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.regIfNoLog.setOnClickListener {
+        binding.regIfNoLog.setOnClickListener {3
             findNavController().navigate(R.id.action_loginFragm_to_regFragm)
         }
 
@@ -48,7 +53,16 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
                 val passwordValidation = validateField(logInPassword, "Password cannot be empty")
 
                 if (emailValidation && passwordValidation) {
-                    viewModel.login(email, password)
+                    if (email == validEmail && password == validPassword) {
+                        // Navigate to AddProductsActivity if credentials match
+                        Intent(requireActivity(), AddProductsActivity::class.java).also { intent ->
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
+                    } else {
+                        // Display error message for invalid credentials
+                        Snackbar.make(requireView(), "Invalid login credentials", Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         }
