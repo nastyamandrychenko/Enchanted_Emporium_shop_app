@@ -3,7 +3,11 @@
     <style name="Base.Theme.Enchanted_Emporium" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
     </style>
 
     <style name="Theme.Enchanted_Emporium" parent="Base.Theme.Enchanted_Emporium" />
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/olive</item>
+    </style>
 </resources>

@@ -60,8 +60,7 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
                             startActivity(intent)
                         }
                     } else {
-                        // Display error message for invalid credentials
-                        Snackbar.make(requireView(), "Invalid login credentials", Snackbar.LENGTH_LONG).show()
+                        viewModel.login(email, password)
                     }
                 }
             }
