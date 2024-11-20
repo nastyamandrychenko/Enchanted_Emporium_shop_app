@@ -14,32 +14,27 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
     private val firestore: FirebaseFirestore
-) : ViewModel()  {
+) : ViewModel() {
 
     private val _products = MutableStateFlow<Resource<List<Product>>>(Resource.Unspecified())
     val products: StateFlow<Resource<List<Product>>> = _products
 
-    init {
-        fetchProducts()
-
-    }
-
-    fun fetchProducts() {
+    fun getProductsByCategory(category: String): StateFlow<Resource<List<Product>>> {
         viewModelScope.launch {
             _products.emit(Resource.Loading())
+            firestore.collection("Products")
+                .whereEqualTo("category", category).get()
+                .addOnSuccessListener { result ->
+                    val productsList = result.toObjects(Product::class.java)
+                    viewModelScope.launch {
+                        _products.emit(Resource.Success(productsList))
+                    }
+                }.addOnFailureListener {
+                    viewModelScope.launch {
+                        _products.emit(Resource.Error(it.message.toString()))
+                    }
+                }
         }
-        firestore.collection("Products")
-            .whereEqualTo("category", "Trending now").get().addOnSuccessListener { result ->
-                val productsList = result.toObjects(Product::class.java)
-                viewModelScope.launch {
-                    _products.emit(Resource.Success(productsList))
-                }
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _products.emit(Resource.Error(it.message.toString()))
-                }
-            }
+        return _products
     }
-
-
 }

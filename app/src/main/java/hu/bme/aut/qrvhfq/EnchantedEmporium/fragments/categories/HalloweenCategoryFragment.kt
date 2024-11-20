@@ -1,4 +1,4 @@
 package hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories
 
-class HalloweenCategoryFragment : BaseProductCategoryFragment() {
+class HalloweenCategoryFragment : BaseProductCategoryFragment("Halloween")  {
 }
