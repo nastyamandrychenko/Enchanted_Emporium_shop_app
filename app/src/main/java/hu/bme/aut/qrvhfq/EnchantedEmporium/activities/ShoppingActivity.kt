@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.ActivityShoppingBinding
-
+@AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShoppingBinding

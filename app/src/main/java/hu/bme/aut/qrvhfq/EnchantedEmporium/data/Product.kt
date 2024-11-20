@@ -7,4 +7,6 @@ data class Product(
     val price: Float,
     val description: String? = null,
     val images: List<String>
-)
+){
+    constructor(): this("0", "", "",0f, "", images= emptyList())
+}

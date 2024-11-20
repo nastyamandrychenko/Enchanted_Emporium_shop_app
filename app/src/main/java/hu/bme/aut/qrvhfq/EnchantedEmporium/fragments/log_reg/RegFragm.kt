@@ -94,6 +94,7 @@ class RegFragm: Fragment() {
                                     Log.d(TAG, it.message.toString())
                                     RegisterBut.revertAnimation()
                                 }
+                                else -> Unit
                             }
                         }
                     }
