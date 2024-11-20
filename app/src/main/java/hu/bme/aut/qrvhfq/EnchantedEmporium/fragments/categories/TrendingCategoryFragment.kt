@@ -10,7 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ProductsAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.ProductsViewModel
@@ -18,6 +19,7 @@ import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentTrendingCategoryBinding
 import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class TrendingCategoryFragment : Fragment(R.layout.fragment_trending_category) {
     private lateinit var binding: FragmentTrendingCategoryBinding
     private lateinit var productsAdapter: ProductsAdapter
@@ -71,7 +73,7 @@ class TrendingCategoryFragment : Fragment(R.layout.fragment_trending_category) {
         productsAdapter = ProductsAdapter()
         binding.rvSpecialProducts.apply {
             layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                GridLayoutManager(requireContext(), 2)
             adapter = productsAdapter
         }
     }
