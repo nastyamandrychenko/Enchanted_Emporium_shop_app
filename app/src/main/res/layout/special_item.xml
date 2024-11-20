@@ -17,7 +17,6 @@
             android:id="@+id/product_image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@drawable/test_image2"
             android:contentDescription="Product Image"
             android:scaleType="centerCrop"
             android:scaleY="1.50"
