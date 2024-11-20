@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.Product
 import hu.bme.aut.qrvhfq.myapplication.databinding.SpecialItemBinding
 
-class TrendingNowProductsAdapter :RecyclerView.Adapter<TrendingNowProductsAdapter.TrendingNowProductsViewHolder>() {
+class ProductsAdapter :RecyclerView.Adapter<ProductsAdapter.TrendingNowProductsViewHolder>() {
     inner class TrendingNowProductsViewHolder(private val binding: SpecialItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
@@ -62,4 +62,3 @@ class TrendingNowProductsAdapter :RecyclerView.Adapter<TrendingNowProductsAdapte
 
 }
 
-}
