@@ -7,15 +7,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.Product
+import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.ActivityAddProductsBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,6 +46,9 @@ class AddProductsActivity : AppCompatActivity() {
                 saveProduct()
             }
         }
+        binding.edCategory.setOnClickListener {
+            fetchCategories()
+        }
 
         val selectImageActivity =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -61,7 +71,6 @@ class AddProductsActivity : AppCompatActivity() {
             }
             selectImageActivity.launch(intent)
         }
-
         binding.buttonClearImages.setOnClickListener {
             clearSelectedImages()
         }
@@ -73,13 +82,74 @@ class AddProductsActivity : AppCompatActivity() {
         Toast.makeText(this, "Images cleared", Toast.LENGTH_SHORT).show()
     }
 
+    private fun fetchCategories() {
+        lifecycleScope.launch {
+            try {
+                val categories = firestore.collection("Categories").get().await()
+                    .map { it.getString("name") ?: "" }
+                    .filter { it.isNotEmpty() }
+
+                showCategoryDialog(categories)
+            } catch (e: Exception) {
+                Log.e("CategoryError", "Error fetching categories: ${e.message}", e)
+                Toast.makeText(this@AddProductsActivity, "Failed to load categories.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showCategoryDialog(categories: List<String>) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_category_selector, null)
+        val builder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Select or Add a Category")
+
+        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
+        val listView = dialogView.findViewById<ListView>(R.id.categoryListView)
+        val addCategoryEditText = dialogView.findViewById<EditText>(R.id.addCategoryEditText)
+        listView.adapter = categoryAdapter
+
+        val dialog = builder.create()
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            binding.edCategory.setText(categories[position])
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<AppCompatButton>(R.id.addCategoryButton).setOnClickListener {
+            val newCategory = addCategoryEditText.text.toString().trim()
+            if (newCategory.isNotEmpty()) {
+                saveNewCategory(newCategory)
+                binding.edCategory.setText(newCategory)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Enter a valid category name", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun saveNewCategory(newCategory: String) {
+        val categoryMap = mapOf("name" to newCategory)
+        firestore.collection("Categories").add(categoryMap)
+            .addOnSuccessListener {
+                Toast.makeText(this, "New category added.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Log.e("CategoryError", "Error adding category: ${e.message}", e)
+                Toast.makeText(this, "Failed to add category.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
     private fun updateImagesUI() {
         binding.tvSelectedImages.text = if (selectedImages.isEmpty()) {
             binding.buttonClearImages.isEnabled = false
-            "No images selected"
+            "-"
         } else {
             binding.buttonClearImages.isEnabled = true
-            "Selected images: ${selectedImages.size}"
+            "${selectedImages.size}"
         }
     }
 
