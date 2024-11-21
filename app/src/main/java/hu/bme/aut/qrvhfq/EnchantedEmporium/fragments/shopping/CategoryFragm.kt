@@ -4,29 +4,34 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.CategoriesAdapter
+import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ProductsAdapter
+import hu.bme.aut.qrvhfq.EnchantedEmporium.data.Category
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.CategoriesViewModel
+import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.ProductsViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentCategoryBinding
 
 @AndroidEntryPoint
-class CategoryFragm : Fragment(R.layout.fragment_category){
+class CategoryFragm : Fragment(R.layout.fragment_category) {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var categoriesAdapter: CategoriesAdapter
+    private lateinit var productsAdapter: ProductsAdapter
     private val viewModel: CategoriesViewModel by viewModels()
+    private val productsViewModel: ProductsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCategoryBinding.bind(view)
 
-        setupRecyclerView()
+        setupCategoryRecyclerView()
+        setupProductRecyclerView()
 
         // Observe categories
         lifecycleScope.launchWhenStarted {
@@ -50,13 +55,21 @@ class CategoryFragm : Fragment(R.layout.fragment_category){
         viewModel.fetchCategories()
     }
 
-    private fun setupRecyclerView() {
+    private fun setupCategoryRecyclerView() {
         categoriesAdapter = CategoriesAdapter { category ->
-            navigateToCategoryProducts(category.name)
+            navigateToCategoryProducts(category)
         }
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = categoriesAdapter
+        }
+    }
+
+    private fun setupProductRecyclerView() {
+        productsAdapter = ProductsAdapter()
+        binding.rvProducts.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = productsAdapter
         }
     }
 
@@ -68,17 +81,33 @@ class CategoryFragm : Fragment(R.layout.fragment_category){
         binding.progressbar.visibility = View.GONE
     }
 
-    private fun navigateToCategoryProducts(categoryName: String) {
-        val fragment = ProductCategoryFragment().apply {
-            arguments = Bundle().apply {
-                putString("category_name", categoryName)
+    private fun navigateToCategoryProducts(category: Category) {
+        // Update the background of the category (change color, image, etc.)
+//        binding.root.setBackgroundResource(R.drawable.favourite) // Example
+
+        // Fetch products for the selected category
+        fetchProducts(category.name)
+
+        // Optionally, change category text color or background
+        // binding.categoryNameTextView.setTextColor(Color.RED) // For example
+    }
+
+    private fun fetchProducts(categoryName: String) {
+        lifecycleScope.launchWhenStarted {
+            productsViewModel.getProductsByCategory(categoryName).collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> showLoading()
+                    is Resource.Success -> {
+                        hideLoading()
+                        productsAdapter.differ.submitList(resource.data ?: emptyList())
+                    }
+                    is Resource.Error -> {
+                        hideLoading()
+                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
+                    }
+                    else -> Unit
+                }
             }
         }
-
-        requireActivity().supportFragmentManager.beginTransaction()
-            .remove(CategoryFragm())
-            .replace(R.id.fragment_container, fragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
     }
 }
