@@ -110,6 +110,17 @@
                     android:gravity="center"
                     android:layout_marginStart="20dp"
                     />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonClearImages"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="Clear Images"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/lusitana_bold"
+                    android:backgroundTint="@null" />
             </LinearLayout>
 
 

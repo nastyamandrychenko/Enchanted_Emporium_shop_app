@@ -26,6 +26,7 @@ class ProductsViewModel @Inject constructor(
                 .whereEqualTo("category", category).get()
                 .addOnSuccessListener { result ->
                     val productsList = result.toObjects(Product::class.java)
+                        .filter { !it.images.isNullOrEmpty() } // Exclude items with null or empty images
                     viewModelScope.launch {
                         _products.emit(Resource.Success(productsList))
                     }

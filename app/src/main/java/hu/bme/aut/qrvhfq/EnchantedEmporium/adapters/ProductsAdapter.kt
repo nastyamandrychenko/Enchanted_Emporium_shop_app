@@ -16,7 +16,7 @@ class ProductsAdapter :RecyclerView.Adapter<ProductsAdapter.TrendingNowProductsV
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(productImage)
                 productTitle.text = product.name
-                productPrice.text = product.price.toString()
+                productPrice.text = "$${product.price.toInt()}"
             }
         }
     }
