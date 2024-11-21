@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="8dp"
+    android:radius="12dp"
+    app:cardBackgroundColor="@android:color/white">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="16dp"
+android:gravity="center">
+
+<!-- Category Image -->
+<ImageView
+    android:id="@+id/imgCategory"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_marginBottom="12dp"
+    android:src="@drawable/test_image2"
+android:scaleType="centerCrop"
+android:background="@drawable/category_image_background"
+android:layout_gravity="center" />
+
+<TextView
+    android:id="@+id/txtCategoryName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Category 1"
+    android:textSize="18sp"
+    android:textColor="@android:color/black"
+    android:fontFamily="@font/lusitana_bold"
+    android:textAlignment="center"
+    android:gravity="center"
+    android:layout_marginTop="8dp" />
+
+</LinearLayout>
+
+    </androidx.cardview.widget.CardView>

@@ -8,10 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.HomeViewpagerAdapter
-import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.AutumnPotionsCategoryFragment
-import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.HalloweenCategoryFragment
-import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.MoonPhasesCategoryFragment
-import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.TrendingCategoryFragment
+import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.home_categories.AutumnPotionsCategoryFragment
+import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.home_categories.HalloweenCategoryFragment
+import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.home_categories.MoonPhasesCategoryFragment
+import hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.categories.home_categories.TrendingCategoryFragment
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentHomeBinding
 
