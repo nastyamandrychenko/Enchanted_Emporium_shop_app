@@ -13,6 +13,7 @@
             android:background="@drawable/back_texture"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
                 <!-- Top Layout Fragment -->
                 <fragment
                     android:id="@+id/topLayoutFragment"
@@ -22,6 +23,21 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/CatNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:text="Categories"
+                    android:fontFamily="@font/lusitana_bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/topLayoutFragment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center" />
 
 
                 <!-- Progress Bar -->
@@ -45,8 +61,22 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/topLayoutFragment"
+                app:layout_constraintTop_toBottomOf="@+id/CatNameTextView"
                 app:layout_constraintBottom_toTopOf="@+id/rvProducts" />
+
+                <TextView
+                    android:id="@+id/productNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/lusitana_bold"
+                    app:layout_constraintTop_toBottomOf="@+id/rvCategories"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center" />
 
                 <!-- RecyclerView for Products (displayed after selecting a category) -->
                 <androidx.recyclerview.widget.RecyclerView
@@ -57,7 +87,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvCategories"
+                app:layout_constraintTop_toBottomOf="@+id/productNameTextView"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

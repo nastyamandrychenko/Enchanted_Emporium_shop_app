@@ -84,12 +84,12 @@ class CategoryFragm : Fragment(R.layout.fragment_category) {
     private fun navigateToCategoryProducts(category: Category) {
         // Update the background of the category (change color, image, etc.)
 //        binding.root.setBackgroundResource(R.drawable.favourite) // Example
-
+        binding.productNameTextView.text = category.name
         // Fetch products for the selected category
         fetchProducts(category.name)
 
         // Optionally, change category text color or background
-        // binding.categoryNameTextView.setTextColor(Color.RED) // For example
+
     }
 
     private fun fetchProducts(categoryName: String) {
