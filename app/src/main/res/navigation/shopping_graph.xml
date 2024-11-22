@@ -9,21 +9,42 @@
         android:id="@+id/homeFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.HomeFragm"
         android:label="HomeFragm"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragm_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.CartFragm"
         android:label="CartFragm"
         tools:layout="@layout/fragment_cart"
-       />
+       >
+        <action
+            android:id="@+id/action_cartFragm_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.CategoryFragm"
         android:label="SearchFragm"
-        tools:layout="@layout/fragment_category"/>
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragm_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProfileFragm"
         android:label="ProfileFragm"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProductDetailsFragment"
+        android:label="ProductDetailsFragment"
+        tools:layout="@layout/product_details">
+        <argument
+            android:name="product"
+            app:argType="hu.bme.aut.qrvhfq.EnchantedEmporium.data.Product" />
+    </fragment>
 </navigation>
