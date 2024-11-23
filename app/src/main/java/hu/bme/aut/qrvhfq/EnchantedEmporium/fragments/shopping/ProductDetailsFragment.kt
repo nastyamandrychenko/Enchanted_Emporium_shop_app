@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ViewPager2Images
 import hu.bme.aut.qrvhfq.myapplication.databinding.ProductDetailsBinding
@@ -29,19 +30,23 @@ class ProductDetailsFragment : Fragment() {
 
         val product = args.product
 
-        setupViewpager()
+//        setupViewpager()
 
         binding.apply {
             productTitle.text = product.name
             productPrice.text = "$ ${product.price}"
             productDescription.text = product.description
         }
-        viewPagerAdapter.differ.submitList(product.images)
+        loadImage(product.images.firstOrNull())
     }
 
-    private fun setupViewpager() {
-        binding.apply {
-            viewPagerProductImages.adapter = viewPagerAdapter
+    private fun loadImage(imagePath: String?) {
+        if (!imagePath.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(imagePath)
+                .into(binding.productImage)
+        } else {
+            // Handle case where no image is available
         }
     }
 }
