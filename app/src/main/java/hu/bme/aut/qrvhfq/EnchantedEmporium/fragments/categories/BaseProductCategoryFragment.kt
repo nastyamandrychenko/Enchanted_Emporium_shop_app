@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ProductsAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.showBottomNavigationView
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.ProductsViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentTrendingCategoryBinding
@@ -76,5 +77,11 @@ open class BaseProductCategoryFragment(private val category: String) : Fragment(
 
     private fun showLoading() {
         binding.progressbar.visibility = View.VISIBLE
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        showBottomNavigationView()
     }
 }

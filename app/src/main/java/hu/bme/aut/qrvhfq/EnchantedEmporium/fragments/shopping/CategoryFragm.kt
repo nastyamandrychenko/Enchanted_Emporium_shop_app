@@ -13,6 +13,7 @@ import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.CategoriesAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ProductsAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.Category
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.showBottomNavigationView
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.CategoriesViewModel
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.ProductsViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
@@ -95,6 +96,11 @@ class CategoryFragm : Fragment(R.layout.fragment_category) {
 
         // Optionally, change category text color or background
 
+    }
+    override fun onResume() {
+        super.onResume()
+
+        showBottomNavigationView()
     }
 
     private fun fetchProducts(categoryName: String) {
