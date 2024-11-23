@@ -67,12 +67,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="The Witch's Cookbook"
+                    android:singleLine="false"
+                    android:maxLines="3"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:gravity="start"
                     android:ellipsize="end"
-                    android:maxLines="1" />
+                     />
 
                 <TextView
                     android:id="@+id/productPrice"

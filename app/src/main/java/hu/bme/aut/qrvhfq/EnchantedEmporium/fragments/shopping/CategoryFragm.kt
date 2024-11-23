@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.CategoriesAdapter
@@ -67,6 +68,10 @@ class CategoryFragm : Fragment(R.layout.fragment_category) {
 
     private fun setupProductRecyclerView() {
         productsAdapter = ProductsAdapter()
+        productsAdapter.onClick = {
+            val bundle = Bundle().apply { putParcelable("product", it) }
+            findNavController().navigate(R.id.action_categoryFragm_to_productDetailsFragment, bundle)
+        }
         binding.rvProducts.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productsAdapter

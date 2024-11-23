@@ -8,14 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ViewPager2Images
 import hu.bme.aut.qrvhfq.myapplication.databinding.ProductDetailsBinding
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
     private val args by navArgs<ProductDetailsFragmentArgs>()
     private lateinit var binding: ProductDetailsBinding
-    private val viewPagerAdapter by lazy { ViewPager2Images() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,11 +28,10 @@ class ProductDetailsFragment : Fragment() {
 
         val product = args.product
 
-//        setupViewpager()
 
         binding.apply {
             productTitle.text = product.name
-            productPrice.text = "$ ${product.price}"
+            productPrice.text = "$ ${product.price.toInt()}"
             productDescription.text = product.description
         }
         loadImage(product.images.firstOrNull())
@@ -46,7 +43,6 @@ class ProductDetailsFragment : Fragment() {
                 .load(imagePath)
                 .into(binding.productImage)
         } else {
-            // Handle case where no image is available
         }
     }
 }
