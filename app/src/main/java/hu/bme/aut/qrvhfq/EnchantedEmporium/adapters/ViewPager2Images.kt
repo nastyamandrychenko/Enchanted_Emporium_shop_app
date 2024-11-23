@@ -1,5 +1,6 @@
 package hu.bme.aut.qrvhfq.EnchantedEmporium.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -12,7 +13,8 @@ class ViewPager2Images: RecyclerView.Adapter<ViewPager2Images.ViewPager2ImagesVi
     inner class ViewPager2ImagesViewHolder(val binding: ViewpagerImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(imagePath: String){
+        fun bind(imagePath: String) {
+            Log.d("ViewPager2Images", "Loading image: $imagePath")
             Glide.with(itemView).load(imagePath).into(binding.imageProductDetails)
         }
     }

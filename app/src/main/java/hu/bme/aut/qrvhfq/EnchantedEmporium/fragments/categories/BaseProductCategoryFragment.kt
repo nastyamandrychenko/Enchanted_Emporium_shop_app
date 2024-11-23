@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.ProductsAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.ProductsViewModel
+import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentTrendingCategoryBinding
 import kotlinx.coroutines.flow.collectLatest
 
@@ -36,6 +38,11 @@ open class BaseProductCategoryFragment(private val category: String) : Fragment(
         super.onViewCreated(view, savedInstanceState)
 
         setupProductsRv()
+
+        productsAdapter.onClick = {
+            val bundle = Bundle().apply { putParcelable("product", it) }
+            findNavController().navigate(R.id.action_homeFragm_to_productDetailsFragment, bundle)
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.getProductsByCategory(category).collectLatest {

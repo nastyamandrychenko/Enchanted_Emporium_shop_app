@@ -36,6 +36,7 @@ class ProductDetailsFragment : Fragment() {
             productPrice.text = "$ ${product.price}"
             productDescription.text = product.description
         }
+        viewPagerAdapter.differ.submitList(product.images)
     }
 
     private fun setupViewpager() {
