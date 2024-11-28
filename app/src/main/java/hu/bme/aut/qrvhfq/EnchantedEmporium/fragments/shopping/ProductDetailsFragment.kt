@@ -53,7 +53,9 @@ class ProductDetailsFragment : Fragment() {
                     }
                     is Resource.Success ->{
                         binding.buyNowButton.stopAnimation()
-                        binding.buyNowButton.setBackgroundColor(resources.getColor(R.color.dark_olive))
+                        binding.buyNowButton.setBackgroundColor(R.drawable.added_to_cart_button)
+                        Toast.makeText(requireContext(), "Product added to the cart", Toast.LENGTH_SHORT).show()
+
                     }
                     is Resource.Error ->{
                         binding.buyNowButton.stopAnimation()
