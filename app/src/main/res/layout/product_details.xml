@@ -107,7 +107,7 @@
                 android:layout_marginBottom="24dp" />
 
             <!-- Buy Now Button -->
-            <androidx.appcompat.widget.AppCompatButton
+            <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/buyNowButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_marginBottom="50dp"
                 android:text="Buy Now"
                 android:textSize="16sp"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/button_background"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
