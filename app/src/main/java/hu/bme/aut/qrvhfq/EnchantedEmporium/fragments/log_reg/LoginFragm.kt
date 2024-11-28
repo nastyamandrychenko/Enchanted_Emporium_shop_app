@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.activities.AddProductsActivity
 import hu.bme.aut.qrvhfq.EnchantedEmporium.activities.ShoppingActivity
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.SharedPrefsUtil
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.LogInViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.FragmentLoginBinding
@@ -27,6 +28,7 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
 
     private val validEmail = "admin@domain.com"
     private val validPassword = "admin123"
+    private lateinit var sharedPrefsUtil: SharedPrefsUtil
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +41,16 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPrefsUtil = SharedPrefsUtil(requireContext())
+        if (sharedPrefsUtil.shouldAutoLogin(requireContext())) {
 
-        binding.regIfNoLog.setOnClickListener {3
+            Intent(requireActivity(), ShoppingActivity::class.java).also { intent ->
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            return
+        }
+        binding.regIfNoLog.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragm_to_regFragm)
         }
 
@@ -72,6 +82,7 @@ class LoginFragm: Fragment(R.layout.fragment_login) {
                     is Resource.Loading -> binding.LogInBut.startAnimation()
                     is Resource.Success -> {
                         binding.LogInBut.revertAnimation()
+                        sharedPrefsUtil.saveLoginTimestamp(requireContext())
                         Intent(requireActivity(), ShoppingActivity::class.java).also { intent ->
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
