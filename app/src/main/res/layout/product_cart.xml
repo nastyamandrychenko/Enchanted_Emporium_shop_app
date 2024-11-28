@@ -32,18 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Product Title -->
+
+        <!-- Product Price -->
         <TextView
             android:id="@+id/productTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lusitana_regular"
             android:text="The Witch's cookbook"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textStyle="bold" />
 
-
-        <!-- Product Price -->
         <TextView
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
