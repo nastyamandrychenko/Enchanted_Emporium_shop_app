@@ -30,15 +30,28 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
             cartViewModel.cartProducts.collect { resource ->
                 when (resource) {
                     is Resource.Loading -> {
+                        binding.progressbarCart.visibility = View.VISIBLE
                     }
+
                     is Resource.Success -> {
+                        binding.progressbarCart.visibility = View.GONE
                         val cartProducts = resource.data
                         cartProductAdapter.differ.submitList(cartProducts)
 
-                        binding.imageEmptyBoxTexture.visibility = if (cartProducts.isNullOrEmpty()) View.VISIBLE else View.GONE
+                        // Show or hide views based on whether the cart is empty
+                        if (cartProducts.isNullOrEmpty()) {
+                            binding.rvCart.visibility = View.GONE
+                            binding.imageEmptyBoxTexture.visibility = View.VISIBLE
+                        } else {
+                            binding.rvCart.visibility = View.VISIBLE
+                            binding.imageEmptyBoxTexture.visibility = View.GONE
+                        }
                     }
+
                     is Resource.Error -> {
+                        binding.progressbarCart.visibility = View.GONE
                     }
+
                     else -> Unit
                 }
             }
@@ -53,6 +66,7 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
         }
 
         cartProductAdapter.onProductClick = { cartProduct ->
+            // Handle product click if needed
         }
 
         lifecycleScope.launchWhenStarted {

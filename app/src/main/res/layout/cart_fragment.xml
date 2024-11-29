@@ -23,7 +23,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
 
                 <ImageView
@@ -69,22 +70,15 @@
             app:layout_constraintGuide_percent="0.04" />
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bottomGuideLine"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.68" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomGuideLine"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/progressbarCart"
+            app:layout_constraintTop_toBottomOf="@id/toolbarCart"
             tools:listitem="@layout/product_cart" />
 
         <ImageView
@@ -92,10 +86,10 @@
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:src="@drawable/empty_cart_ic"
-            app:layout_constraintTop_toTopOf="@+id/toolbarCart"
-            app:layout_constraintBottom_toBottomOf="@id/rvCart"
-            app:layout_constraintRight_toRightOf="@id/rvCart"
-            app:layout_constraintLeft_toLeftOf="@id/rvCart"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarCart"
+            app:layout_constraintBottom_toTopOf="@id/orderSummary"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:visibility="gone"
             />
 
@@ -115,14 +109,13 @@
             android:id="@+id/orderSummary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/lusitana_bold"
-            android:layout_margin="20dp"
             android:text="Order Summary"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/rvCart"
             app:layout_constraintBottom_toTopOf="@+id/totalBoxContainer"
+            app:layout_constraintTop_toBottomOf="@id/rvCart"
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
@@ -135,7 +128,7 @@
             android:background="@drawable/rounded_corners"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/bottomGuideLine">
+            app:layout_constraintTop_toBottomOf="@id/orderSummary">
 
             <TextView
                 android:id="@+id/subtotalLable"
@@ -271,8 +264,9 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="45dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:text="Order Now"
+
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
