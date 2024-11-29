@@ -17,8 +17,8 @@ class CartProductAdapter :RecyclerView.Adapter<CartProductAdapter.CartProductVie
                 Glide.with(itemView).load(cartProduct.product.images[0]).into(productImage)
                 productTitle.text = cartProduct.product.name
                 productQuantity.text = cartProduct.quantity.toString()
-                productPrice.text = cartProduct.product.price.toString()
-                quantityPrice.text = (cartProduct.product.price*cartProduct.quantity).toString()
+                productPrice.text = "${cartProduct.product.price.toInt()}$"
+                quantityPrice.text = "${(cartProduct.product.price * cartProduct.quantity).toInt()}$"
             }
         }
     }

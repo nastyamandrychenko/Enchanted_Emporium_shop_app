@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.CartProductAdapter
 import hu.bme.aut.qrvhfq.EnchantedEmporium.firebase.FirebaseCommon
@@ -25,7 +26,12 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
 
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = cartProductAdapter
-
+        cartProductAdapter.onProductClick = {
+            val b = Bundle().apply {
+                putParcelable("product", it.product)
+            }
+            findNavController().navigate(R.id.action_cartFragm_to_productDetailsFragment, b)
+        }
         lifecycleScope.launchWhenStarted {
             cartViewModel.cartProducts.collect { resource ->
                 when (resource) {
@@ -65,9 +71,7 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
             cartViewModel.changeQuantity(cartProduct, FirebaseCommon.QuantityChanging.DECREASE)
         }
 
-        cartProductAdapter.onProductClick = { cartProduct ->
-            // Handle product click if needed
-        }
+
 
         lifecycleScope.launchWhenStarted {
             cartViewModel.deleteDialog.collect { cartProduct ->
