@@ -13,6 +13,7 @@ import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.CartViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.CartFragmentBinding
+import kotlinx.coroutines.flow.collectLatest
 
 class CartFragm : Fragment(R.layout.cart_fragment) {
     private lateinit var binding: CartFragmentBinding
@@ -24,6 +25,15 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding = CartFragmentBinding.bind(view)
 
+        var totalPrice = 0f
+        lifecycleScope.launchWhenStarted {
+            cartViewModel.productsPrice.collectLatest { price ->
+                price?.let {
+                    totalPrice = it
+                    calculateCartSummary(totalPrice)
+                }
+            }
+        }
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = cartProductAdapter
         cartProductAdapter.onProductClick = {
@@ -44,7 +54,6 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
                         val cartProducts = resource.data
                         cartProductAdapter.differ.submitList(cartProducts)
 
-                        // Show or hide views based on whether the cart is empty
                         if (cartProducts.isNullOrEmpty()) {
                             binding.rvCart.visibility = View.GONE
                             binding.imageEmptyBoxTexture.visibility = View.VISIBLE
@@ -77,6 +86,27 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
             cartViewModel.deleteDialog.collect { cartProduct ->
                 cartViewModel.deleteCartProduct(cartProduct)
             }
+        }
+    }
+
+    private fun calculateCartSummary(subtotal: Float) {
+        val taxPercentage = 0.1
+
+        val deliveryFee = when {
+            subtotal > 400 -> 0.0
+            subtotal > 200 -> subtotal * 0.05
+            else -> subtotal * 0.1
+        }
+
+        val tax = subtotal * taxPercentage
+
+        val total = subtotal + tax + deliveryFee
+
+        binding.apply {
+            SubTotalPrice.text = "$${String.format("%.2f", subtotal)}"
+            TotTaxPrice.text = "$${String.format("%.2f", tax)}"
+            deliveryPrice.text = if (deliveryFee == 0.0) "Free" else "$${String.format("%.2f", deliveryFee)}"
+            tvTotalPrice.text = "$${String.format("%.2f", total)}"
         }
     }
 }

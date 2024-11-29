@@ -33,6 +33,7 @@ class CartProductAdapter :RecyclerView.Adapter<CartProductAdapter.CartProductVie
         }
     }
 
+
     val differ = AsyncListDiffer(this, diffCallback)
 
     override fun onCreateViewHolder(
@@ -65,6 +66,8 @@ class CartProductAdapter :RecyclerView.Adapter<CartProductAdapter.CartProductVie
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+
 
     var onProductClick: ((CartProduct) -> Unit)? = null
     var onPlusClick: ((CartProduct) -> Unit)? = null

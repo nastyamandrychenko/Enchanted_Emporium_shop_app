@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
@@ -33,6 +34,14 @@ class CartViewModel@Inject constructor(
         getCartProducts()
     }
 
+    val productsPrice = cartProducts.map {
+        when (it) {
+            is Resource.Success -> {
+                calculatePrice(it.data!!)
+            }
+            else -> null
+        }
+    }
     private fun getCartProducts() {
         viewModelScope.launch { _cartProducts.emit(Resource.Loading()) }
         firestore.collection("user").document(auth.uid!!).collection("cart")
