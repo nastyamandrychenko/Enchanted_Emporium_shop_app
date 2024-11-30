@@ -87,7 +87,7 @@ class RegFragm: Fragment() {
                                     RegisterBut.startAnimation()
                                 }
                                 is Resource.Success -> {
-                                    Log.d("test", it.data.toString())
+                                    findNavController().navigate(R.id.action_regFragm_to_loginFragm)
                                     RegisterBut.revertAnimation()
                                 }
                                 is Resource.Error -> {
