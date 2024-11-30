@@ -37,9 +37,12 @@ class TopLayoutFragment : Fragment(R.layout.fragment_top_layout) {
 
         productsAdapter = ProductsAdapter()
         binding.searchRecyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(),2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productsAdapter
+            visibility = View.GONE // Initially hide RecyclerView
         }
+
+        // Handle product item click
         productsAdapter.onClick = {
             val bundle = Bundle().apply { putParcelable("product", it) }
             findNavController().navigate(R.id.action_homeFragm_to_productDetailsFragment, bundle)
@@ -48,41 +51,56 @@ class TopLayoutFragment : Fragment(R.layout.fragment_top_layout) {
         // Set up search bar actions
         binding.serchEditText.apply {
             setOnClickListener {
-                if (text.toString() == "Search...") {
-                    setText("")
-                }else{
-                    setText("")
-
-                }
+                binding.cross.visibility = View.GONE
+                clearFocus()
+                binding.searchRecyclerView.visibility = View.GONE
             }
 
             addTextChangedListener { text ->
                 if (!text.isNullOrEmpty()) {
                     // Perform search with the current text
                     viewModel.searchProductsByName(text.toString())
+                    binding.cross.visibility = View.VISIBLE
+                    binding.searchRecyclerView.visibility = View.VISIBLE
                 } else {
-                    // Clear search and show all products
                     productsAdapter.submitList(emptyList())
+                    binding.cross.visibility = View.GONE
+                    binding.searchRecyclerView.visibility = View.GONE
                 }
             }
         }
 
-        // Observe the filtered products from the ViewModel
+        binding.cross.setOnClickListener {
+            binding.serchEditText.setText("")
+            binding.cross.visibility = View.GONE
+            productsAdapter.submitList(emptyList())
+            binding.serchEditText.clearFocus()
+            binding.searchRecyclerView.visibility = View.GONE
+        }
+
         viewModel.filteredProducts.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    // Show loading
                 }
                 is Resource.Success -> {
                     productsAdapter.differ.submitList(resource.data)
+                    binding.searchRecyclerView.visibility = if (resource.data.isNullOrEmpty()) View.GONE else View.VISIBLE
                 }
-                is Resource.Unspecified ->{
-
-                }
+                is Resource.Unspecified ->{}
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
+                    binding.searchRecyclerView.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (binding.serchEditText.text.isNullOrEmpty()) {
+            binding.searchRecyclerView.visibility = View.GONE
+        } else {
+            binding.searchRecyclerView.visibility = View.VISIBLE
         }
     }
 }

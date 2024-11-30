@@ -35,7 +35,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_border"
                     android:fontFamily="@font/lusitana_regular"
-                    android:text="Search..."
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingStart="30dp"
@@ -68,7 +67,7 @@
                     android:layout_marginLeft="10dp" />
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/cross"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="10dp"
