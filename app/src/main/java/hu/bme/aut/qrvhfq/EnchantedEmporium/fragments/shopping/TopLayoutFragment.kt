@@ -42,10 +42,21 @@ class TopLayoutFragment : Fragment(R.layout.fragment_top_layout) {
             visibility = View.GONE // Initially hide RecyclerView
         }
 
-        // Handle product item click
-        productsAdapter.onClick = {
-            val bundle = Bundle().apply { putParcelable("product", it) }
-            findNavController().navigate(R.id.action_homeFragm_to_productDetailsFragment, bundle)
+        productsAdapter.onClick = { product ->
+            val actionId = when (parentFragment) {
+                is HomeFragm -> R.id.action_homeFragm_to_productDetailsFragment
+                is CategoryFragm -> R.id.action_categoryFragm_to_productDetailsFragment
+                else -> null
+            }
+
+            actionId?.let {
+                val bundle = Bundle().apply { putParcelable("product", product) }
+                findNavController().navigate(it, bundle)
+            } ?: Toast.makeText(
+                requireContext(),
+                "Navigation action not found",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         // Set up search bar actions
