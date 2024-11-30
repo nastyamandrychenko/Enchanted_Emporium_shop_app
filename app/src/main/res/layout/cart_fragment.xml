@@ -26,20 +26,8 @@
                 android:layout_height="match_parent"
                 >
 
-
-                <ImageView
-                    android:id="@+id/imageCloseCart"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_back_arrow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/black" />
-
-
                 <TextView
+                    android:id="@+id/myCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lusitana_bold"
@@ -70,30 +58,34 @@
             app:layout_constraintGuide_percent="0.04" />
 
 
-
+<LinearLayout
+    android:id="@+id/rvCartLayout"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+    app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+    app:layout_constraintTop_toBottomOf="@id/toolbarCart">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCart"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
-            app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/toolbarCart"
-            tools:listitem="@layout/product_cart" />
+            tools:listitem="@layout/product_cart"
+            android:visibility="visible"
+           />
 
         <ImageView
             android:id="@+id/imageEmptyBoxTexture"
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:src="@drawable/empty_cart_ic"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarCart"
-            app:layout_constraintBottom_toTopOf="@id/orderSummary"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="20dp"
             android:visibility="gone"
             />
 
-
+</LinearLayout>
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressbarCart"
@@ -117,7 +109,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/totalBoxContainer"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvCart" />
+            app:layout_constraintTop_toBottomOf="@id/rvCartLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/totalBoxContainer"

@@ -23,8 +23,8 @@
         <!-- Back Button -->
         <ImageView
             android:id="@+id/bachArrow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             app:srcCompat="@drawable/ic_back_arrow"
             app:layout_constraintTop_toBottomOf="@id/topLayoutFragment"
             app:layout_constraintLeft_toLeftOf="parent"

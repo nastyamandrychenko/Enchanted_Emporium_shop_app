@@ -42,6 +42,9 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
             }
             findNavController().navigate(R.id.action_cartFragm_to_productDetailsFragment, b)
         }
+        binding.deliveryAddressContainer.setOnClickListener {
+            findNavController().navigate(R.id.adressFragm)
+        }
         lifecycleScope.launchWhenStarted {
             cartViewModel.cartProducts.collect { resource ->
                 when (resource) {

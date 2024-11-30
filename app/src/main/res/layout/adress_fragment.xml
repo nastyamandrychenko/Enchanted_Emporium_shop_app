@@ -22,6 +22,8 @@
         android:gravity="center"
         android:layout_marginBottom="16dp"/>
 
+
+
     <!-- Address Location -->
     <EditText
         android:id="@+id/etAddressLocation"
@@ -32,7 +34,7 @@
         android:padding="12dp"
         android:textColor="@color/black"
         android:textColorHint="@color/dark_gray"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleAddresses" />
@@ -155,5 +157,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/ic_back_arrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
