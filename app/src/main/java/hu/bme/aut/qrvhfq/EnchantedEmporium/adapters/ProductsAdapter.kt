@@ -58,7 +58,9 @@ class ProductsAdapter :RecyclerView.Adapter<ProductsAdapter.TrendingNowProductsV
         }
 
         var onClick: ((Product) -> Unit)? = null
-
+    fun submitList(list: List<Product>) {
+        differ.submitList(list)
+    }
 
 }
 

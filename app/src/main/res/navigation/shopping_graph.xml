@@ -47,4 +47,13 @@
             android:name="product"
             app:argType="hu.bme.aut.qrvhfq.EnchantedEmporium.data.Product" />
     </fragment>
+    <fragment
+        android:id="@+id/topLayoutFragment3"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.TopLayoutFragment"
+        android:label="TopLayoutFragment"
+        tools:layout="@layout/fragment_top_layout">
+        <action
+            android:id="@+id/action_topLayoutFragment3_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 </navigation>
