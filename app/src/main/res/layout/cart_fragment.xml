@@ -110,6 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="36dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lusitana_bold"
             android:text="Order Summary"
             android:textColor="@color/black"
@@ -248,14 +249,134 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@android:color/darker_gray"
+                android:background="@color/dark_gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TotTaxLable" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/informationTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="36dp"
+            android:fontFamily="@font/lusitana_bold"
+            android:text="Information"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalBoxContainer"
+            />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/informationSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corners"
+            app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+            app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/informationTitle">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deliveryAddressContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/addressIcon"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:src="@drawable/ic_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/deliveryAddressText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Your Delivery Address"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/lusitana_bold"
+                    app:layout_constraintStart_toEndOf="@id/addressIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <ImageView
+                    android:id="@+id/address"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/dividerLine2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryAddressContainer" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/paymentMethodContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/deliveryAddressContainer"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/paymentIcon"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:src="@drawable/ic_payment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/paymentMethodText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Payment method"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/lusitana_bold"
+                    app:layout_constraintStart_toEndOf="@id/paymentIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <ImageView
+                    android:id="@+id/paymentChevron"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/buttonCheckout"
@@ -268,7 +389,7 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/totalBoxContainer"
+            app:layout_constraintTop_toBottomOf="@+id/informationSection"
             app:layout_constraintBottom_toBottomOf="parent"
             app:spinning_bar_color="@color/black" />
 

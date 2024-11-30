@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_cartFragm_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_cartFragm_to_adressFragm"
+            app:destination="@id/adressFragm" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragm"
@@ -47,4 +50,9 @@
             android:name="product"
             app:argType="hu.bme.aut.qrvhfq.EnchantedEmporium.data.Product" />
     </fragment>
+    <fragment
+        android:id="@+id/adressFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.AdressFragm"
+        android:label="AdressFragm"
+        tools:layout="@layout/adress_fragment"/>
 </navigation>
