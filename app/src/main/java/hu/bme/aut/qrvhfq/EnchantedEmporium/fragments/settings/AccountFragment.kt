@@ -1,31 +1,41 @@
 package hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.settings
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.User
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.AccountViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 
-class AccountFragment : Fragment() {
-
+@AndroidEntryPoint
+class AccountFragment: Fragment(R.layout.account_fragment){
     private lateinit var edFirstName: EditText
     private lateinit var edLastName: EditText
     private lateinit var edEmail: EditText
     private lateinit var imageUser: CircleImageView
     private lateinit var buttonSave: CircularProgressButton
     private lateinit var progressBar: ProgressBar
+    private lateinit var backArrow : ImageView
     private lateinit var viewModel: AccountViewModel
+    private val PICK_IMAGE_REQUEST = 1 // Request code for image picker
+    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +49,20 @@ class AccountFragment : Fragment() {
         edEmail = view.findViewById(R.id.edEmail)
         imageUser = view.findViewById(R.id.imageUser)
         buttonSave = view.findViewById(R.id.buttonSave)
+        progressBar = view.findViewById(R.id.progressbarAccount)
+        backArrow = view.findViewById(R.id.imageCloseUserAccount)
 
-        // Initialize ViewModel
         viewModel = ViewModelProvider(this)[AccountViewModel::class.java]
 
-        // Fetch current user data
         fetchUserData()
 
-        // Handle Save button click
         buttonSave.setOnClickListener { saveChanges() }
+       backArrow.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        imageUser.setOnClickListener {
+            openImagePicker()
+        }
 
         return view
     }
@@ -65,6 +80,14 @@ class AccountFragment : Fragment() {
                             edFirstName.setText(it.firstName)
                             edLastName.setText(it.lastName)
                             edEmail.setText(it.email)
+                            if (it.imagePatg.isNotEmpty()) {
+                                Glide.with(requireContext())
+                                    .load(it.imagePatg)
+                                    .circleCrop()
+                                    .into(imageUser)
+                            } else {
+                                imageUser.setImageResource(R.drawable.test_image2)
+                            }
                         }
                     }
                     is Resource.Error -> {
@@ -94,8 +117,21 @@ class AccountFragment : Fragment() {
             imagePatg = ""
         )
 
-        viewModel.updateUser(user, null)
+        viewModel.updateUser(user, imageUri)
         observeUpdateStatus()
+    }
+
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            imageUri = data.data
+            imageUser.setImageURI(imageUri)
+        }
     }
 
     private fun observeUpdateStatus() {

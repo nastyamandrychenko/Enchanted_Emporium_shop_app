@@ -1,6 +1,161 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back_texture"
+   >
 
+    <LinearLayout
+        android:id="@+id/profile_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/olive"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/test_image2"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical"
+             />
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/lusitana_regular"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <!-- Orders Section -->
+    <LinearLayout
+        android:id="@+id/orders_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corners"
+        app:layout_constraintTop_toBottomOf="@id/profile_section"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/orders_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orders"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/lusitana_regular"
+            android:textColor="@color/black" />
+
+        <!-- List of Orders Options -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/all_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="All Orders"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/lusitana_regular"
+                android:textColor="@color/black"
+                android:background="@color/olive" />
+
+            <TextView
+                android:id="@+id/track_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile Settings"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+             />
+
+            <TextView
+                android:id="@+id/billing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Address"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:background="@color/olive" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Notifications Section -->
+    <LinearLayout
+        android:id="@+id/notifications_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corners"
+        app:layout_constraintTop_toBottomOf="@id/orders_section"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/notifications_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notifications"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/olive" />
+
+        <Switch
+            android:id="@+id/notifications_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_gravity="end" />
+    </LinearLayout>
+
+    <!-- Logout Section -->
+    <LinearLayout
+        android:id="@+id/logout_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corners"
+        app:layout_constraintTop_toBottomOf="@id/notifications_section"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/logout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_olive" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

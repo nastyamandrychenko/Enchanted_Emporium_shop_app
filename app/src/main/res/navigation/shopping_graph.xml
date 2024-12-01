@@ -43,7 +43,11 @@
         android:id="@+id/profileFragm"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProfileFragm"
         android:label="ProfileFragm"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragm_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.ProductDetailsFragment"
@@ -63,4 +67,9 @@
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.PaymentFragment"
         android:label="PaymentFragment"
         tools:layout="@layout/payment_method"/>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.settings.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/account_fragment"/>
 </navigation>
