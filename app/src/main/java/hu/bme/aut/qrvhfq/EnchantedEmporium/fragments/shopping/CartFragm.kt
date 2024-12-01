@@ -18,6 +18,7 @@ import hu.bme.aut.qrvhfq.EnchantedEmporium.data.CartProduct
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.orders.Order
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.orders.OrderStatus
 import hu.bme.aut.qrvhfq.EnchantedEmporium.firebase.FirebaseCommon
+import hu.bme.aut.qrvhfq.EnchantedEmporium.util.PdfService
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.AddressViewModel
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.CartViewModel
@@ -134,6 +135,11 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
                         findNavController().navigateUp()
                         Snackbar.make(requireView(), "Your order was placed", Snackbar.LENGTH_LONG)
                             .show()
+
+                        it.data?.let { order ->
+                            showOrderCompletedDialog(order)
+                        } ?: Toast.makeText(requireContext(), "Error: Order data is null", Toast.LENGTH_SHORT).show()
+
                     }
 
                     is Resource.Error -> {
@@ -190,6 +196,26 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
                 Toast.makeText(requireContext(), "Error fetching address: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
         )
+    }
+    private fun showOrderCompletedDialog(order: Order) {
+        val alertDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Order Completed")
+            setMessage("Your order has been placed successfully. Would you like to download a PDF bill?")
+            setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setPositiveButton("Yes") { dialog, _ ->
+                val pdfFile = PdfService.generateOrderPdf(requireContext(), order)
+                if (pdfFile != null) {
+                    Toast.makeText(requireContext(), "PDF saved to: ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to generate PDF", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+        }
+        alertDialog.create()
+        alertDialog.show()
     }
 
     private fun calculateCartSummary(subtotal: Float) {
