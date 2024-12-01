@@ -58,14 +58,14 @@ class ProfileFragm : Fragment(R.layout.fragment_profile){
 
 
         binding.logoutSection.setOnClickListener {
-            // Clear shared preferences
+
             sharedPrefsUtil.clearPreferences()
 
-            // Restart the app
+
             val intent = Intent(requireActivity(), LoginRegActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-            requireActivity().finish() // Ensure the current activity is completely destroyed
+            requireActivity().finish()
         }
 
         binding.trackOrders.setOnClickListener{

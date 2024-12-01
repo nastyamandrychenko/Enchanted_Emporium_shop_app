@@ -16,7 +16,6 @@ import hu.bme.aut.qrvhfq.EnchantedEmporium.data.CartProduct
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.hideBottomNavigationView
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.DetailsViewModel
-import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.ProductDetailsBinding
 import kotlinx.coroutines.flow.collectLatest
 
@@ -53,7 +52,6 @@ class ProductDetailsFragment : Fragment() {
                     }
                     is Resource.Success ->{
                         binding.buyNowButton.stopAnimation()
-                        binding.buyNowButton.setBackgroundColor(R.drawable.added_to_cart_button)
                         Toast.makeText(requireContext(), "Product added to the cart", Toast.LENGTH_SHORT).show()
 
                     }

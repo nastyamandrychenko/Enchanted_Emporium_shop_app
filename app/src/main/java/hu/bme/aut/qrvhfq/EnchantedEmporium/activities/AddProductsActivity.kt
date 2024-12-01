@@ -63,6 +63,9 @@ class AddProductsActivity : AppCompatActivity() {
                     updateImagesUI()
                 }
             }
+        binding.logOut.setOnClickListener{
+            logOut()
+        }
 
         binding.buttonImagesPicker.setOnClickListener {
             val intent = Intent(ACTION_GET_CONTENT).apply {
@@ -127,6 +130,22 @@ class AddProductsActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+    private fun logOut() {
+        val sharedPreferences = getSharedPreferences("your_shared_preferences_name", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+
+        val intent = Intent(this, LoginRegActivity::class.java)
+
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
+        finish()
+
+
     }
 
     private fun saveNewCategory(newCategory: String) {
