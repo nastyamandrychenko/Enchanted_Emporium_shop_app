@@ -42,6 +42,16 @@ class CartViewModel@Inject constructor(
             else -> null
         }
     }
+
+    fun getCartProductsAsList(): List<CartProduct> {
+        val currentCartProducts = cartProducts.value
+        return if (currentCartProducts is Resource.Success) {
+            currentCartProducts.data ?: emptyList() // Use emptyList() as a fallback
+        } else {
+            emptyList() // Return an empty list if the resource is not in a success state
+        }
+    }
+
     private fun getCartProducts() {
         viewModelScope.launch { _cartProducts.emit(Resource.Loading()) }
         firestore.collection("user").document(auth.uid!!).collection("cart")

@@ -2,30 +2,44 @@ package hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.qrvhfq.EnchantedEmporium.adapters.CartProductAdapter
+import hu.bme.aut.qrvhfq.EnchantedEmporium.data.Address
+import hu.bme.aut.qrvhfq.EnchantedEmporium.data.CartProduct
+import hu.bme.aut.qrvhfq.EnchantedEmporium.data.orders.Order
+import hu.bme.aut.qrvhfq.EnchantedEmporium.data.orders.OrderStatus
 import hu.bme.aut.qrvhfq.EnchantedEmporium.firebase.FirebaseCommon
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
+import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.AddressViewModel
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.CartViewModel
+import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.OrderViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
 import hu.bme.aut.qrvhfq.myapplication.databinding.CartFragmentBinding
 import kotlinx.coroutines.flow.collectLatest
-
+@AndroidEntryPoint
 class CartFragm : Fragment(R.layout.cart_fragment) {
     private lateinit var binding: CartFragmentBinding
-    private val cartViewModel: CartViewModel by activityViewModels() // Assuming CartViewModel is shared across fragments
-
+    private val cartViewModel: CartViewModel by activityViewModels()
+    private var selectedAddress: Address? = null
+    private val orderViewModel by viewModels<OrderViewModel>()
     private val cartProductAdapter = CartProductAdapter()
+    var totalPrice = 0f
+    private var products = emptyList<CartProduct>()
+    private val addressViewModel: AddressViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = CartFragmentBinding.bind(view)
-
-        var totalPrice = 0f
+        products = cartViewModel.getCartProductsAsList()
         lifecycleScope.launchWhenStarted {
             cartViewModel.productsPrice.collectLatest { price ->
                 price?.let {
@@ -34,6 +48,18 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
                 }
             }
         }
+        fetchAndDisplayAddress()
+
+        binding.buttonCheckout.setOnClickListener{
+//            if (selectedAddress == null) {
+//                Toast.makeText(requireContext(), "Please select and address", Toast.LENGTH_SHORT)
+//                    .show()
+//                return@setOnClickListener
+//            }
+            showOrderConfirmationDialog()
+
+        }
+
         binding.rvCart.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCart.adapter = cartProductAdapter
         cartProductAdapter.onProductClick = {
@@ -94,6 +120,76 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
                 cartViewModel.deleteCartProduct(cartProduct)
             }
         }
+
+
+        lifecycleScope.launchWhenStarted {
+            orderViewModel.order.collectLatest {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.buttonCheckout.startAnimation()
+                    }
+
+                    is Resource.Success -> {
+                        binding.buttonCheckout.revertAnimation()
+                        findNavController().navigateUp()
+                        Snackbar.make(requireView(), "Your order was placed", Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+
+                    is Resource.Error -> {
+                        binding.buttonCheckout.revertAnimation()
+                        Toast.makeText(requireContext(), "Error ${it.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    else -> Unit
+                }
+            }
+        }
+
+    }
+
+    private fun showOrderConfirmationDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Order items")
+            setMessage("Do you want to order your cart items?")
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setPositiveButton("Yes") { dialog, _ ->
+                val order = Order(
+                    OrderStatus.Ordered.status,
+                    totalPrice,
+                    products,
+                    selectedAddress!!
+                )
+                orderViewModel.placeOrder(order)
+                dialog.dismiss()
+            }
+        }
+        alertDialog.create()
+        alertDialog.show()
+    }
+
+    private fun fetchAndDisplayAddress() {
+        addressViewModel.fetchAddress(
+            onSuccess = { addressData ->
+                if (addressData.isNotEmpty()) {
+                    selectedAddress = Address(
+                        street = addressData["street"] ?: "",
+                        city = addressData["city"] ?: "",
+                        country = addressData["country"] ?: "",
+                        postalCode = addressData["postalCode"] ?: "",
+                        phone = addressData["phone"] ?: "",
+                        fullName = addressData["full name"] ?: ""
+                    )
+
+                }
+            },
+            onFailure = { exception ->
+                Toast.makeText(requireContext(), "Error fetching address: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     private fun calculateCartSummary(subtotal: Float) {
@@ -108,6 +204,7 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
         val tax = subtotal * taxPercentage
 
         val total = subtotal + tax + deliveryFee
+        totalPrice = total.toFloat()
 
         binding.apply {
             SubTotalPrice.text = "$${String.format("%.2f", subtotal)}"
