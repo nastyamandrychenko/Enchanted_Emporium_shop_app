@@ -122,7 +122,8 @@
             app:layout_constraintStart_toEndOf="@id/etCity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"
+            android:inputType="number"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Buttons -->

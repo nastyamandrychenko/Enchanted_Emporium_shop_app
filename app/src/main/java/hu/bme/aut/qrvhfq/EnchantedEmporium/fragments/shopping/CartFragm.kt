@@ -45,6 +45,10 @@ class CartFragm : Fragment(R.layout.cart_fragment) {
         binding.deliveryAddressContainer.setOnClickListener {
             findNavController().navigate(R.id.adressFragm)
         }
+        binding.paymentMethodContainer.setOnClickListener{
+            findNavController().navigate(R.id.paymentFragment)
+
+        }
         lifecycleScope.launchWhenStarted {
             cartViewModel.cartProducts.collect { resource ->
                 when (resource) {
