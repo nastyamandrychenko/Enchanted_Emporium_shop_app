@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_profileFragm_to_adressFragm"
             app:destination="@id/adressFragm" />
+        <action
+            android:id="@+id/action_profileFragm_to_ordersFragm"
+            app:destination="@id/ordersFragm" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -75,4 +78,22 @@
         android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.settings.AccountFragment"
         android:label="AccountFragment"
         tools:layout="@layout/account_fragment"/>
+    <fragment
+        android:id="@+id/ordersFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping.OrdersFragm"
+        android:label="OrdersFragm"
+        tools:layout="@layout/all_orders_fragm">
+        <action
+            android:id="@+id/action_ordersFragm_to_orderDetailsFragm"
+            app:destination="@id/orderDetailsFragm" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragm"
+        android:name="hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.settings.OrderDetailsFragm"
+        android:label="OrderDetailsFragm"
+        tools:layout="@layout/order_details">
+        <argument
+            android:name="order"
+            app:argType="hu.bme.aut.qrvhfq.EnchantedEmporium.data.orders.Order" />
+    </fragment>
 </navigation>

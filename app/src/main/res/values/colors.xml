@@ -8,5 +8,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#F6DCD4</color>
     <color name="darker_olive">#8BA12F</color>
+    <color name="yellow">#FFB84D</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
 
 </resources>

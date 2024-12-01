@@ -24,4 +24,10 @@ class SharedPrefsUtil (private val context: Context){
         val timeDiff = currentTime - lastLoginTime
         return timeDiff <= 14400000
     }
+    fun clearLoginData(context: Context) {
+        val sharedPref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

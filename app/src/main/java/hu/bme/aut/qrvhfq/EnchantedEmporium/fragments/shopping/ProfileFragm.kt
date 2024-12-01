@@ -22,7 +22,6 @@ class ProfileFragm : Fragment(R.layout.fragment_profile){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
-
         accountViewModel.getUser()
         lifecycleScope.launchWhenStarted {
             accountViewModel.user.collect { resource ->
@@ -63,6 +62,11 @@ class ProfileFragm : Fragment(R.layout.fragment_profile){
         binding.billing.setOnClickListener{
 
             findNavController().navigate(R.id.adressFragm)
+        }
+
+        binding.allOrders.setOnClickListener{
+
+            findNavController().navigate(R.id.ordersFragm)
         }
     }
 
