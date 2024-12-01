@@ -1,10 +1,6 @@
-package hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.shopping
+package hu.bme.aut.qrvhfq.EnchantedEmporium.fragments.settings
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
-import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import hu.bme.aut.qrvhfq.EnchantedEmporium.data.User
 import hu.bme.aut.qrvhfq.EnchantedEmporium.util.Resource
 import hu.bme.aut.qrvhfq.EnchantedEmporium.viewmodel.AccountViewModel
 import hu.bme.aut.qrvhfq.myapplication.R
-@AndroidEntryPoint
-class ProfileFragm : Fragment(R.layout.account_fragment){
+
+class AccountFragment : Fragment() {
+
     private lateinit var edFirstName: EditText
     private lateinit var edLastName: EditText
     private lateinit var edEmail: EditText
@@ -31,8 +26,6 @@ class ProfileFragm : Fragment(R.layout.account_fragment){
     private lateinit var buttonSave: CircularProgressButton
     private lateinit var progressBar: ProgressBar
     private lateinit var viewModel: AccountViewModel
-    private val PICK_IMAGE_REQUEST = 1 // Request code for image picker
-    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +39,6 @@ class ProfileFragm : Fragment(R.layout.account_fragment){
         edEmail = view.findViewById(R.id.edEmail)
         imageUser = view.findViewById(R.id.imageUser)
         buttonSave = view.findViewById(R.id.buttonSave)
-        progressBar = view.findViewById(R.id.progressbarAccount)
 
         // Initialize ViewModel
         viewModel = ViewModelProvider(this)[AccountViewModel::class.java]
@@ -56,11 +48,6 @@ class ProfileFragm : Fragment(R.layout.account_fragment){
 
         // Handle Save button click
         buttonSave.setOnClickListener { saveChanges() }
-
-        // Handle image click to pick a new image
-        imageUser.setOnClickListener {
-            openImagePicker()
-        }
 
         return view
     }
@@ -78,14 +65,6 @@ class ProfileFragm : Fragment(R.layout.account_fragment){
                             edFirstName.setText(it.firstName)
                             edLastName.setText(it.lastName)
                             edEmail.setText(it.email)
-                            if (it.imagePatg.isNotEmpty()) {
-                                Glide.with(requireContext())
-                                    .load(it.imagePatg)  // This is the URL of the image
-                                    .circleCrop()  // Optional: Crop the image into a circle
-                                    .into(imageUser)
-                            } else {
-                                imageUser.setImageResource(R.drawable.test_image2)  // Set default image if URL is empty
-                            }
                         }
                     }
                     is Resource.Error -> {
@@ -115,21 +94,8 @@ class ProfileFragm : Fragment(R.layout.account_fragment){
             imagePatg = ""
         )
 
-        viewModel.updateUser(user, imageUri)
+        viewModel.updateUser(user, null)
         observeUpdateStatus()
-    }
-
-    private fun openImagePicker() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            imageUri = data.data
-            imageUser.setImageURI(imageUri)  // Display the selected image in the ImageView
-        }
     }
 
     private fun observeUpdateStatus() {

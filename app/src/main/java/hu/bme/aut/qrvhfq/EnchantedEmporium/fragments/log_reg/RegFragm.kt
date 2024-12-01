@@ -104,13 +104,13 @@ class RegFragm: Fragment() {
             // Reset error and background when user focuses on EditText
             firstNameLable.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
-                    firstNameLable.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                    firstNameLable.background = resources.getDrawable(R.drawable.edittext_border, null)
                 }
             }
 
             LastNameLable.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
-                    LastNameLable.background = resources.getDrawable(R.drawable.edittext_border, null) // Reset to default
+                    LastNameLable.background = resources.getDrawable(R.drawable.edittext_border, null)
                 }
             }
 
