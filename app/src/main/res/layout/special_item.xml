@@ -75,35 +75,10 @@
             app:layout_constraintTop_toBottomOf="@id/product_title"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Add to Cart Button -->
-        <ImageView
-            android:id="@+id/add_to_cart_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="5dp"
-            android:contentDescription="Add to cart button"
-            android:src="@drawable/plus_tocart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/transparent">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/favourite" />
-        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
